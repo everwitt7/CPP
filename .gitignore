@@ -6,3 +6,6 @@
 
 # do not ignore any directory
 !*/
+
+# ignore vscode settings
+.vscode/

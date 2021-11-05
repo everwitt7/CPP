@@ -23,6 +23,22 @@ same thing as naming the same function twice in python WITH the same signature, 
 #include <iostream>
 
 /*
+We are including the print header file in both main.cpp and print.cpp. Remember that calling
+include basically copies and pastes the contents of that file into this file, so because we 
+DEFINED the function in the header file, we will have two definitions for the same function.
+
+For some reason this is not erroring...?
+We are creating duplicate symbols, i.e. void Print(const char *message) is defined both
+in this file, main.cpp AND in print.cpp and neither is static, so it should throw an error.
+One way to remedy this would be to add 'static' to the function definition in print.h, or 
+add 'inline' in the print.h, but the best thing to do is to DECLARE the function in the header,
+and DEFINE the function in the .cpp file. Then including #include "print.h" will include the
+DECLARATION and the linker will find the DEFINITION elsewhere (in this case, in print.cpp)
+*/
+#include "print.h"
+void Print(const char *message);
+
+/*
 g++ -o main main.cpp log.cpp
 I needed to compile both programs, log.cpp and main.cpp in order to get this to work - building just the Log.cpp
 works, but building just main.cpp does not work and I get a linker error:
@@ -37,7 +53,27 @@ My understanding - each declaration needs a definition, because we declare a fun
 definition but finds none and this leads to a linker error. So basically, when we declare a function but do not
 provide a definition with a body then we will keep getting this error.
 */
-void Log(const char *message);
+const char *Log(const char *message);
+// This method has NO DEFINITION because I changed the name in log.cpp to Logger, but running this program
+// with no call to Log in the main function allows the function to be built because the linker does not
+// try to link this function. However, if we call Log in another function, e.g. Mult, even if we do not call
+// Mult in the main there will still be a linker error because we could call this Mult function in a different
+// .cpp file. The way to fix this error is to add the keyword 'static' to the function, which tells the compiler
+// that ONLY this .cpp file will use this function, no other cpp file will use it. So now if we do not call
+// Mult in the main the linker will work because it knows NOT to link Mult any other .cpp file, so it does
+// not need to know the definition of the Log function just yet.
+
+/*
+'static' tells the compiler that I will only ever use this function in this file, no where else. This is 
+important for compilation reasons. If I call Log in Math, the linker will try 
+
+add and remove static from the function to see what it does
+*/
+static int Mult(int a, int b)
+{
+    Log("multiply");
+    return a * b;
+}
 
 int main()
 {
@@ -51,10 +87,37 @@ int main()
 
     Declarations are basically functions without a body, definitions are functions with a body specifying
     what that function does       
-    */
-    Log("hello world!!!");
-    // std::cin.get();
 
+    */
+
+    /*
+    > g++ -o main main.cpp && ./main (compiles, links, AND runs the binary executable file)
+    > g++ -c -o main main.cpp (just compiles)
+
+    > g++ -o main main.cpp (tries to both link and compile)
+    Undefined symbols for architecture x86_64:
+    "Log(char const*)", referenced from:
+        _main in main-f30cc3.o
+    ld: symbol(s) not found for architecture x86_64
+    clang: error: linker command failed with exit code 1 (use -v to see invocation)
+    ***
+    We can still compile AND link without calling Log(msg) in the main
+
+    However, if we define int Mult(args) without the static keyword, even if we do not call Mult in the main
+    function we get this linking error because the linker thinks that another .cpp file might use this
+    function Mult, so it needs to link Log, but it cannot link log because there is no definition for it
+
+    If we define static int Mult(args) the linker will work because static makes sure the 
+    linker knows that only this translation unit (TODO: difference between an object file and transunit?)
+    is the only file that will use this function. NOTE: I would ALWAYS be able to compile all of these examples 
+    without errors, but sometimes linking will cause errors.
+
+    NOTE: "build" means BOTH compiling AND linking (g++ -o main main.cpp)
+    "compile" just means compiling (g++ -c -o main main.cpp)
+    */
+    // Log("hello world!!!");
+
+    Print("asdf");
     return 0;
 }
 /*
