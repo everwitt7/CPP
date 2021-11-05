@@ -1,0 +1,8 @@
+# ignore all files (we want to ignore executables without extensions)
+*
+
+# do not ignore any file with an extension
+!*.*
+
+# do not ignore any directory
+!*/
