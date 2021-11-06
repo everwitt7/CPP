@@ -145,4 +145,9 @@ object files then passes them to the linker which generates the binary and I do 
 steps?
 
 Question: what is an Abstract Syntax Tree?
+
+BUILD means COMPILE & LINK but NOT run the executable: cmd + shift + b (shortcut)
+Starting build...
+> g++ -fdiagnostics-color=always -g *.cpp -o /Users/Everwitt/Documents/SoftwareEng/CPP/07Debugging/Main
+Build finished successfully.
 */
