@@ -117,6 +117,10 @@ int main()
     */
     // Log("hello world!!!");
 
+    /* 
+    BIG TAKEAWAY: you should NEVER have to include a .cpp file in another .cpp file, you should
+    ONLY ever have to include the header of a translation unit.
+     */
     Print("asdf");
     return 0;
 }
