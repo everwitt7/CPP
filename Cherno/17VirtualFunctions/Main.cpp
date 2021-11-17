@@ -23,7 +23,7 @@ public:
  * or a Player. We use the keyword `virtual` to denote that we will OVERRIDE this parent function in a child class. 
  * Also, it is proper syntax to add the keyword `override` to the child function that corresponds with the virtual
  * function and create a 1:1 correspondence, which will help prevent errors that occur mistyping. 
- * `virtual` creates a Vlookup table and places that function in it, but more on this later... what is a Vlookup table?
+ * `virtual` creates a Vlookup table and places that function in it, but more on this later... what is a VLOOKUP table?
  * 
  * There are two runtime costs: 
  * additional memory for the vtable

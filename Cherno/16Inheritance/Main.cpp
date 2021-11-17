@@ -33,6 +33,10 @@ private:
 
 protected:
     unsigned int b;
+    void PrintMe()
+    {
+        log("protected method");
+    }
 };
 
 // class Player
@@ -59,6 +63,12 @@ class Player : public Entity
     {
         std::cout << name << std::endl;
     }
+
+public:
+    void PPrint()
+    {
+        PrintMe();
+    }
 };
 
 int main()
@@ -66,10 +76,11 @@ int main()
     Player p;
     p.Move(5, 5); // we can call the functions from Entity that seemingly do not exist in Player
     log(p.x);
-    log(p.a);            // error: 'a' is a private member of 'Entity'
+    // log(p.a);         // error: 'a' is a private member of 'Entity'
     log(sizeof(Entity)); // 2 floats, 2 unsigned ints is 4 * 4 bytes = 16 bytes
     log(sizeof(Player)); // 8 extra because because of the const char *
     log(sizeof(char *)); // a const char pointer is 8 bytes
+    p.PPrint();          // this works!
 }
 /**
  * @brief creating a subclass is simple, `class Child : public Parent` is the syntax, and basically this does something

@@ -9,6 +9,7 @@
  * 
  */
 #include <iostream>
+#define log(x) std::cout << x << std::endl;
 /**
  * @brief static acts similar to the word private for classes. When you use static in a cpp file to declare a function
  * or a variable, it makes the scope of that function or variable local only to that cpp file - it is NOT global. Making things
@@ -76,6 +77,11 @@ int main()
 
     Entity::Print();
     Entity::Print();
+
+    // Person p;
+    // log(p.p);
+
+    // added after to test static when using a class from a different translational unit
 }
 
 /**
