@@ -10,5 +10,7 @@
 # ignore vscode settings
 .vscode/
 
+.DS_Store
+
 # ignore debugger folders
 Main.dSYM/

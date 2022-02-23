@@ -8,12 +8,14 @@
  * @copyright Copyright (c) 2021
  * 
  */
+#include <vector>
 
-// @todo: DO CLASSES FIRST IN CHERNO
-// class IPV4
-// {
 
-// }
+// IPv4 is dot separated digits that can have values 0-255
+class IPV4
+{
+    int[] octet;
+}
 
 int main()
 {
